@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class TrelloClient {
     RestTemplate restTemplate;
 
     @Value("${trello.api.endpoint.prod}")
-    private String trelloApiEndpoint;
+    private String trelloApiEndpoint ;
     @Value("${trello.app.key}")
     private String trelloAppKey;
     @Value("${trello.app.token}")
@@ -31,24 +31,21 @@ public class TrelloClient {
 
     private URI url;
 
-    public List<TrelloBoardDto> getTrelloBoards() {
-        this.url = buildURL();
+    public List<TrelloBoardDto>getTrelloBoards( ) {
+        this.url=buildURL();
 
 
-        List<Optional<TrelloBoardDto>> boardsList =
-                Arrays.stream(restTemplate.getForObject(url, TrelloBoardDto[].class))
-                        .map(Optional::ofNullable)
-                        .collect(Collectors.toList());
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
-        return boardsList.stream().map(s -> s.get()).collect(Collectors.toList());
+        return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
+
 
     }
-
-    private URI buildURL() {
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + username + "/boards")
+    private URI buildURL(){
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/"+username+"/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
                 .queryParam("fields", "name,id").build().encode().toUri();
-        return url;
+       return url;
     }
 }
