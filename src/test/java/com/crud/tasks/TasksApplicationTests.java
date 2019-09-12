@@ -1,5 +1,6 @@
 package com.crud.tasks;
 
+import com.crud.tasks.domain.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ public class TasksApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }
