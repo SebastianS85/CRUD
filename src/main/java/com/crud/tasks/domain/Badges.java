@@ -7,24 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
+public class Badges {
 
-public class CreatedTrelloCard {
-
-    @JsonProperty("id")
-    private String id;
-    @JsonProperty("badges")
-    private Badges badges;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("shortUrl")
-    private String shortUrl;
-
+    @JsonProperty("vote")
+    private int vote;
+    @JsonProperty("attachmentsByType")
+    private AttachmentsByType attachmentsByType;
 
 }
