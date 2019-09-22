@@ -39,7 +39,6 @@ public class SimpleEmailService {
         if(mail.getToCC()!=null){
             mailMessege.setCc(mail.getToCC());
         }
-        mailMessege.setCc(mail.getToCC());
         mailMessege.setSubject(mail.getSubject());
         mailMessege.setText(mail.getMessage());
         LOGGER.info("email has been send");
