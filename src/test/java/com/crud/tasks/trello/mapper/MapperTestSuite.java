@@ -41,22 +41,28 @@ public class MapperTestSuite {
     @Test
     public void mapToTrelloBoardsList() {
         //Given
-        TrelloBoardDto boardDto = new TrelloBoardDto("1", "first board", null);
-        TrelloBoardDto boardDto1 = new TrelloBoardDto("1", "first board", null);
+        TrelloListDto trelloList = new TrelloListDto("1", "test list", true);
+        List<TrelloListDto> list = new ArrayList<>();
+        list.add(trelloList);
+        TrelloBoardDto boardDto = new TrelloBoardDto("1", "first board", list);
+        TrelloBoardDto boardDto1 = new TrelloBoardDto("1", "first board", list);
         List<TrelloBoardDto> trelloBoardDtoList = new ArrayList<>();
         trelloBoardDtoList.add(boardDto);
         trelloBoardDtoList.add(boardDto1);
         //When
         List<TrelloBoard> theList = trelloMapper.mapToBoards(trelloBoardDtoList);
-        assertEquals(1, theList.size());
+        assertEquals(2, theList.size());
 
     }
 
     @Test
     public void mapToTrelloBoardsDto() {
         //Given
-        TrelloBoard trelloBoard = new TrelloBoard("1", "first", null);
-        TrelloBoard trelloBoard1 = new TrelloBoard("1", "first", null);
+        TrelloList trelloList = new TrelloList("1", "test list", true);
+        List<TrelloList> list = new ArrayList<>();
+        list.add(trelloList);
+        TrelloBoard trelloBoard = new TrelloBoard("1", "first", list);
+        TrelloBoard trelloBoard1 = new TrelloBoard("1", "first", list);
         List<TrelloBoard> theList = new ArrayList<>();
         theList.add(trelloBoard);
         theList.add(trelloBoard1);

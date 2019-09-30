@@ -23,21 +23,22 @@ public class TrelloService {
 
     @Autowired
     SimpleEmailService emailService;
-    public static  final String SUBJECT="task new Trello Card";
-public List<TrelloBoardDto>fetchTrelloBoards(){
-    return trelloClient.getTrelloBoards();
+    public static final String SUBJECT = "task new Trello Card";
+
+    public List<TrelloBoardDto> fetchTrelloBoards() {
+        return trelloClient.getTrelloBoards();
     }
 
-public CreatedTrelloCardDto createdTrelloCard(final TrelloCardDto trelloCardDto){
+    public CreatedTrelloCardDto createdTrelloCard(final TrelloCardDto trelloCardDto) {
 
-    CreatedTrelloCardDto newCard=trelloClient.createNewCard(trelloCardDto);
-    ofNullable(newCard).ifPresent(card-> emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
-            "new Card"+trelloCardDto.getName()+"has been created on your trello acoount",
-            null
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
+        ofNullable(newCard).ifPresent(card -> emailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT,
+                "new Card" + trelloCardDto.getName() + "has been created on your trello account",
+                null
 
-    )));
-    return  newCard;
-}
+        )));
+        return newCard;
+    }
 
 
 }
