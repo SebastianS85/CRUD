@@ -21,28 +21,26 @@ public class DbServiceTest {
     DbService dbService;
     @Mock
     TaskRepository taskRepository;
-    ;
+
 
     @Test
-    public void getAllTasks() {
-        //GIVEN
+    public void shouldGetAllTasks() {
+        //Given
         when(taskRepository.findAll()).thenReturn(new ArrayList<>());
-        //WHEN
-        //THEN
+        //When
+        //Then
         assertEquals(0, dbService.getAllTasks().size());
     }
 
     @Test
-    public void getTask() {
+    public void shouldGetTask() {
         //Given
         Task task = new Task(1L, "test task", "test content");
         when(taskRepository.findById(1L)).thenReturn(java.util.Optional.of(new Task(1L, "test", "tes")));
-        //WHEN
-        Optional<Task> foundTask=dbService.getTask(1L);
-        //THEN
-
+        //When
+        Optional<Task> foundTask = dbService.getTask(1L);
+        //Then
         assertTrue(foundTask.isPresent());
     }
-
 
 }

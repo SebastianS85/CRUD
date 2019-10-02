@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
-import com.crud.tasks.domain.TrelloBoardDto;
+import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.trello.client.TrelloClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,28 +22,50 @@ public class TrelloServiceTest {
     TrelloService trelloService;
     @Mock
     TrelloClient trelloClient;
+    @Mock
+    private AdminConfig adminConfig;
+    @Mock
+    private SimpleEmailService simpleEmailService;
 
     @Test
     public void fetchEmptyTrelloBoards() {
-        //GIVEN
+        //Given
         List<TrelloBoardDto> boardDtos=new ArrayList<>();
         when(trelloClient.getTrelloBoards()).thenReturn(boardDtos);
-        //WHEN
+        //When
         List<TrelloBoardDto> newList=trelloService.fetchTrelloBoards();
-        //THen
+        //Then
         assertEquals(0,newList.size());
 
-    }@Test
+    }
+    @Test
     public void fetchTrelloBoards() {
-        //GIVEN
+        //Given
         TrelloBoardDto trelloBoardDto=new TrelloBoardDto("2","test",null);
         List<TrelloBoardDto> boardDtos=new ArrayList<>();
         boardDtos.add(trelloBoardDto);
         when(trelloClient.getTrelloBoards()).thenReturn(boardDtos);
-        //WHEN
+        //When
         List<TrelloBoardDto> newList=trelloService.fetchTrelloBoards();
-        //THen
+        //Then
         assertEquals(1,newList.size());
 
     }
+    @Test
+    public void shouldCreateNewCard(){
+        //Given
+        TrelloCardDto trelloCardDto=new TrelloCardDto("1","test desc","top","test id");
+        CreatedTrelloCardDto newCard=new CreatedTrelloCardDto("1",new Badges(1,new AttachmentsByType(new Trello(1,1))),"test","www.test.com");
+        when(trelloClient.createNewCard(trelloCardDto)).thenReturn(newCard);
+        when(adminConfig.getAdminMail()).thenReturn("test@com.pl");
+        //When
+        CreatedTrelloCardDto theCard= trelloService.createdTrelloCard(trelloCardDto);
+        //Then
+        assertEquals("1",theCard.getId());
+        assertEquals("test",theCard.getName());
+        assertEquals(1,theCard.getBadges().getVote());
+        assertEquals("www.test.com",theCard.getShortUrl());
+
+    }
+
 }

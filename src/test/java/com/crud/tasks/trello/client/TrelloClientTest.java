@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.client;
 
 import com.crud.tasks.config.TrelloConfig;
+import com.crud.tasks.domain.Badges;
 import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
@@ -67,7 +68,7 @@ public class TrelloClientTest {
     @Test
     public void shouldCreateCard() throws URISyntaxException {
         //Given
-
+        Badges badges=new Badges();
         TrelloCardDto trelloCardDto= new TrelloCardDto(
                 "Test Task",
                 "Test Description",
@@ -78,6 +79,7 @@ public class TrelloClientTest {
 
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "1",
+                badges,
                 "Test Task",
                 "http://test.com"
         );
