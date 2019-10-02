@@ -41,19 +41,8 @@ public class DbServiceTest {
         Optional<Task> foundTask=dbService.getTask(1L);
         //THEN
 
-        assertEquals(Optional.of(1L), Optional.ofNullable(foundTask.get().getId()));
+        assertTrue(foundTask.isPresent());
     }
 
-    @Test
-    public void saveTask(){
-        //GIVEN
-        Task task = new Task(1L, "test task", "test content");
-        when(taskRepository.save(task)).thenReturn(task);
-        //WHEN
-        Task savedTask=dbService.saveTask(task);
-        //THEN
-        assertEquals(Optional.of(1L), Optional.ofNullable(savedTask.getId()));
 
-
-    }
 }
