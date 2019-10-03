@@ -26,6 +26,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mail:1.5.7.RELEASE')
     compile group: 'mysql', name: 'mysql-connector-java'
 //	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    compile('com.google.code.gson:gson:2.8.2')
 
 
 }
