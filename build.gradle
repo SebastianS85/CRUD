@@ -29,6 +29,8 @@ dependencies {
 //	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     compile('com.google.code.gson:gson:2.8.2')
 
+   compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
 
 
 }
